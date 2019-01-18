@@ -1,3 +1,4 @@
+import { AuthGaurd } from './services/auth-gaurd.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
@@ -16,6 +17,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -36,18 +39,23 @@ import { LoginComponent } from './login/login.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent},
       { path: 'products', component: ProductsComponent},
       { path: 'shopping-cart', component: ShoppingCartComponent},
       { path: 'check-out', component: CheckOutComponent},
       { path: 'order-success', component: OrderSuccessComponent},
+      { path: 'my/orders', component: MyOrdersComponent},
       { path: 'login', component: LoginComponent},
       { path: 'admin/products', component: AdminProductsComponent},
       { path: 'admin/orders', component: AdminOrdersComponent}
     ])
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGaurd
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
