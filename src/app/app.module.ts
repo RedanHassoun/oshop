@@ -41,15 +41,20 @@ import { AuthService } from './services/auth.service';
     AngularFireAuthModule,
     NgbModule,
     RouterModule.forRoot([
+      /* Anonymous users */
       { path: '', component: HomeComponent},
       { path: 'products', component: ProductsComponent},
       { path: 'shopping-cart', component: ShoppingCartComponent},
-      { path: 'check-out', component: CheckOutComponent},
-      { path: 'order-success', component: OrderSuccessComponent},
-      { path: 'my/orders', component: MyOrdersComponent},
       { path: 'login', component: LoginComponent},
-      { path: 'admin/products', component: AdminProductsComponent},
-      { path: 'admin/orders', component: AdminOrdersComponent}
+      
+      /* Normal users */
+      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGaurd]},
+      { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGaurd]},
+      { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGaurd]},
+      
+      /* Admins */
+      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGaurd]},
+      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGaurd]}
     ])
   ],
   providers: [
