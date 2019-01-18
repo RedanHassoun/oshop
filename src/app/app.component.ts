@@ -1,3 +1,4 @@
+import { UserService } from './services/user.service';
 import { AppConsts } from './common/appconsts';
 import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
@@ -11,9 +12,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor(private authService:AuthService,
-              private router:Router){
+              private router:Router,
+              private userService:UserService){
     authService.user$.subscribe( user => {
       if(user){
+        userService.save(user);
         let retUrl = localStorage.getItem(AppConsts.KEY_RETURN_URL);
         router.navigateByUrl(retUrl);
       }

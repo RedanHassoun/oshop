@@ -1,3 +1,4 @@
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { AuthGaurd } from './services/auth-gaurd.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -53,13 +55,15 @@ import { AuthService } from './services/auth.service';
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGaurd]},
       
       /* Admins */
-      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGaurd]},
-      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGaurd]}
+      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGaurd,AdminAuthGuard]},
+      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGaurd, AdminAuthGuard]}
     ])
   ],
   providers: [
     AuthService,
-    AuthGaurd
+    AuthGaurd,
+    AdminAuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
