@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-products',
@@ -8,13 +8,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent implements OnInit,OnDestroy {
-  productsSub;
+  productsSub:Subscription;
   products:Array<any>;
+  filteredProducts:Array<any>;
 
   constructor(private productService:ProductService) { 
     this.productsSub = productService.getAll()
                         .subscribe(res => {
-                          this.products = res
+                          this.filteredProducts = this.products = res
                         })
   }
 
@@ -25,4 +26,11 @@ export class AdminProductsComponent implements OnInit,OnDestroy {
     this.productsSub.unsubscribe();
   }
 
+  filter(query:string){
+    this.filteredProducts = (query) ? 
+        this.products.filter(p => 
+                      p.title.toLowerCase()
+                      .includes(query.toLowerCase())) : 
+        this.products
+  }
 }

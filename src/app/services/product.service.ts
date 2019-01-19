@@ -39,4 +39,9 @@ export class ProductService {
     return this.db.object(AppConsts.DB_PRODUCTS+'/'+productId)
            .update(product);
   }
+
+  delete(productId:string){
+    return this.db.object(AppConsts.DB_PRODUCTS+'/'+productId)
+            .remove();
+  }
 }
