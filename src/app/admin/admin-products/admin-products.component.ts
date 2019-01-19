@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Observable, Subscription } from 'rxjs';
+import { Product } from 'src/app/model/product';
 
 @Component({
   selector: 'app-admin-products',
@@ -9,8 +10,8 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class AdminProductsComponent implements OnInit,OnDestroy {
   productsSub:Subscription;
-  products:Array<any>;
-  filteredProducts:Array<any>;
+  products:Array<Product>;
+  filteredProducts:Array<Product>;
 
   constructor(private productService:ProductService) { 
     this.productsSub = productService.getAll()

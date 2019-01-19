@@ -1,7 +1,8 @@
 import { AppConsts } from './../common/appconsts';
-import { AngularFireDatabase, DatabaseSnapshot } from '@angular/fire/database';
+import { AngularFireDatabase, DatabaseSnapshot, AngularFireAction } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators'
+import { Product } from '../model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,7 @@ export class ProductService {
     return this.db.list(AppConsts.DB_PRODUCTS).snapshotChanges()
       .pipe(map(action => 
         action.map(c => {
-          const $key = c.payload.key;
-          const data = { $key, ...c.payload.val() };
-          return data;
+          return this.extractProductFromDBSnapshot(c);
         }) 
       ))
   }
@@ -29,9 +28,7 @@ export class ProductService {
     return this.db
         .object(AppConsts.DB_PRODUCTS+'/'+productId).snapshotChanges()
         .pipe(map(action => { 
-            const $key = action.payload.key;
-            const data = { $key, ...action.payload.val() };
-            return data; 
+            return this.extractProductFromDBSnapshot(action);
         }))
   }
 
@@ -43,5 +40,19 @@ export class ProductService {
   delete(productId:string){
     return this.db.object(AppConsts.DB_PRODUCTS+'/'+productId)
             .remove();
+  }
+
+  private extractProductFromDBSnapshot(
+      angularAction:AngularFireAction<DatabaseSnapshot<{}>>):Product{
+    const $theKey = angularAction.payload.key;
+    const obj = angularAction.payload.val()
+    let product:Product = {
+      $key: $theKey,
+      title: obj['title'],
+      price: obj['price'],
+      category: obj['category'],
+      imageURL: obj['imageURL']
+    }
+    return product;
   }
 }
