@@ -34,4 +34,9 @@ export class ProductService {
             return data; 
         }))
   }
+
+  update(productId:string, product:any){
+    return this.db.object(AppConsts.DB_PRODUCTS+'/'+productId)
+           .update(product);
+  }
 }
