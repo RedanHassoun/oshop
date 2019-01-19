@@ -24,4 +24,14 @@ export class ProductService {
         }) 
       ))
   }
+
+  get(productId){
+    return this.db
+        .object(AppConsts.DB_PRODUCTS+'/'+productId).snapshotChanges()
+        .pipe(map(action => { 
+            const $key = action.payload.key;
+            const data = { $key, ...action.payload.val() };
+            return data; 
+        }))
+  }
 }
