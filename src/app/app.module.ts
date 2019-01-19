@@ -24,7 +24,8 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
-
+import { ProductService } from './services/product.service';
+import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FormsModule } from '@angular/forms';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
+    CustomFormsModule,
     FormsModule,
     RouterModule.forRoot([
       /* Anonymous users */
@@ -71,7 +73,8 @@ import { FormsModule } from '@angular/forms';
     AuthGaurd,
     AdminAuthGuard,
     UserService,
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
