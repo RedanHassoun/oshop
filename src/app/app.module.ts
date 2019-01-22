@@ -54,7 +54,7 @@ import {DataTableModule} from "angular-6-datatable";
     FormsModule,
     RouterModule.forRoot([
       /* Anonymous users */
-      { path: '', component: HomeComponent},
+      { path: '', component: ProductsComponent},
       { path: 'products', component: ProductsComponent},
       { path: 'shopping-cart', component: ShoppingCartComponent},
       { path: 'login', component: LoginComponent},
