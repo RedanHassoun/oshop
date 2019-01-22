@@ -26,6 +26,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { FormsModule } from '@angular/forms';
 import { ProductService } from './services/product.service';
 import { CustomFormsModule } from 'ng2-validation';
+import {DataTableModule} from "angular-6-datatable";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CustomFormsModule } from 'ng2-validation';
     AngularFireAuthModule,
     NgbModule,
     CustomFormsModule,
+    DataTableModule,
     FormsModule,
     RouterModule.forRoot([
       /* Anonymous users */

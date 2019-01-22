@@ -12,6 +12,7 @@ export class AdminProductsComponent implements OnInit,OnDestroy {
   productsSub:Subscription;
   products:Array<Product>;
   filteredProducts:Array<Product>;
+  // TODO: Improve the price sorting, and check if the filtering mechanism can be improved.
 
   constructor(private productService:ProductService) { 
     this.productsSub = productService.getAll()
