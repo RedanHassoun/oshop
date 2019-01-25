@@ -16,7 +16,8 @@ export class ShoppingCartService {
     })
   }
 
-  private getCart(cartId: string){
+  async getCart(){
+    let cartId = await this.getOrCreateCartId();
     return this.db.object(AppConsts.DB_SHOPPING_CARTS + '/' + cartId);
   }
 
@@ -34,7 +35,7 @@ export class ShoppingCartService {
     const cartItemPath = AppConsts.DB_SHOPPING_CARTS + 
                         '/' + 
                         cartId + 
-                        '/items'+ 
+                        '/items/'+ 
                         product.$key;
     let item$ = this.db.object(cartItemPath)
                         .snapshotChanges();
