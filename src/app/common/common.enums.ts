@@ -1,0 +1,1 @@
+export enum Operation { ADD,REMOVE };
