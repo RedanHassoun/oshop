@@ -25,9 +25,8 @@ export class ShoppingCartService {
           :ShoppingCart{
       let obj = action.payload.val()
       if(!obj) throw new Error() // TODO: improve
-      let cart:ShoppingCart = new ShoppingCart();
-      cart.$key = action.payload.key;
-      cart.items = obj['items']
+      let cart:ShoppingCart = new ShoppingCart(action.payload.key,
+                                               obj['items']); 
       return cart;
   }
 
