@@ -14,11 +14,11 @@ export class ShoppingCartService {
   constructor(private db:AngularFireDatabase) { }
 
   addToCart(product: Product) {
-    this.modifyCartQuantity(product,Operation.ADD)
+    this.updateItem(product,Operation.ADD)
   }
 
   removeFromCart(product: Product): any {
-    this.modifyCartQuantity(product,Operation.REMOVE)
+    this.updateItem(product,Operation.REMOVE)
   }
 
   angularFireActionToCartObject(action:AngularFireAction<DatabaseSnapshot<{}>>)
@@ -40,7 +40,7 @@ export class ShoppingCartService {
             }));
   }
 
-  private async modifyCartQuantity(theProduct:Product,op:Operation){
+  private async updateItem(theProduct:Product,op:Operation){
     let cartId = await this.getOrCreateCartId();
     let toAdd = (op === Operation.ADD) ? 1 : -1;
     const cartItemPath = AppConsts.DB_SHOPPING_CARTS + 
@@ -58,12 +58,16 @@ export class ShoppingCartService {
             throw new Error("Quantity can't be negative");
 
           this.db.object(cartItemPath).update({
-            product: Product.withoutKey(theProduct),
+            title: theProduct.title,
+            price: theProduct.price,
+            imageURL: theProduct.imageURL,
             quantity: itemFromPayload.quantity + toAdd
           })
         }else{
           this.db.object(cartItemPath).set({
-            product: Product.withoutKey(theProduct),
+            title: theProduct.title,
+            price: theProduct.price,
+            imageURL: theProduct.imageURL,
             quantity: 1
           })
         }

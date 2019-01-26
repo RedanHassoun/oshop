@@ -1,4 +1,5 @@
 import { ShoppingCartItem } from './shopping-cart-item';
+import { Product } from './product';
 
 export class ShoppingCart{
     $key:string; 
@@ -6,6 +7,7 @@ export class ShoppingCart{
 
     constructor(public key,
                 public itemsMap:{[key:string]:ShoppingCartItem}){
+        this.itemsMap = itemsMap || {};
         this.$key = key;
         this.populateItems(itemsMap);
     } 
@@ -18,6 +20,13 @@ export class ShoppingCart{
         return count;
     }
 
+    getQuantity(product:Product){ 
+        if(!this.items) return 0;
+        
+        let item =  this.itemsMap[product.$key];
+        return item ? item.quantity : 0;
+      }
+
     get totalPrice():number{
         let totalPrice:number = 0;
         for(let item of this.items)
@@ -29,7 +38,10 @@ export class ShoppingCart{
     private populateItems(itemsMap:{[key:string]:ShoppingCartItem}){
         for(let productId in itemsMap){
             let item = itemsMap[productId];
-            this.items.push(new ShoppingCartItem(item.product,item.quantity));
+            let x = new ShoppingCartItem();
+            Object.assign(x,item);
+            x.$key = productId;
+            this.items.push(x);
         }
     }
 }
