@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, DatabaseSnapshot } from '@angular/fire/database';
+import { AngularFireDatabase, DatabaseSnapshot, AngularFireObject, AngularFireAction } from '@angular/fire/database';
 import { AppConsts } from '../common/appconsts';
 import { Product } from '../model/product';
-import { take } from 'rxjs/operators';
+import { take,map } from 'rxjs/operators';
 import { Operation } from '../common/common.enums';
+import { ShoppingCart } from '../model/shopping-cart';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,34 @@ export class ShoppingCartService {
     this.modifyCartQuantity(product,Operation.REMOVE)
   }
 
-  private async modifyCartQuantity(product:Product,op:Operation){
+  angularFireActionToCartObject(action:AngularFireAction<DatabaseSnapshot<{}>>)
+          :ShoppingCart{
+      let obj = action.payload.val()
+      if(!obj) throw new Error() // TODO: improve
+      let cart:ShoppingCart = new ShoppingCart();
+      cart.$key = action.payload.key;
+      cart.items = obj['items']
+      return cart;
+  }
+
+  // TODO : continue
+  async getCartObject(){
+    let cartId = await this.getOrCreateCartId();
+    return this.db.object(AppConsts.DB_SHOPPING_CARTS + '/' + cartId)
+            .snapshotChanges()
+            .pipe(map(action=>{
+              return this.angularFireActionToCartObject(action)
+            }));
+  }
+
+  private async modifyCartQuantity(theProduct:Product,op:Operation){
     let cartId = await this.getOrCreateCartId();
     let toAdd = (op === Operation.ADD) ? 1 : -1;
     const cartItemPath = AppConsts.DB_SHOPPING_CARTS + 
                         '/' + 
                         cartId + 
                         '/items/'+ 
-                        product.$key;
+                        theProduct.$key;
     let item$ = this.db.object(cartItemPath)
                         .snapshotChanges();
     item$.pipe(take(1))
@@ -38,10 +59,12 @@ export class ShoppingCartService {
             throw new Error("Quantity can't be negative");
 
           this.db.object(cartItemPath).update({
+            product: Product.withoutKey(theProduct),
             quantity: itemFromPayload.quantity + toAdd
           })
         }else{
           this.db.object(cartItemPath).set({
+            product: Product.withoutKey(theProduct),
             quantity: 1
           })
         }
