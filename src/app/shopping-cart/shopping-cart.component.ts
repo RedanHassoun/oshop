@@ -20,4 +20,8 @@ export class ShoppingCartComponent implements OnInit {
         }))
   }
 
+  clearCart():void{
+    this.shoppingCartService.clearCart();
+  }
+
 }

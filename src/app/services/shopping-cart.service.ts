@@ -21,6 +21,11 @@ export class ShoppingCartService {
     this.updateItem(product,Operation.REMOVE)
   }
 
+  async clearCart() {
+    let cartId = await this.getOrCreateCartId();
+    this.db.object(AppConsts.DB_SHOPPING_CARTS+'/'+cartId+'/items').remove()
+  }
+
   angularFireActionToCartObject(action:AngularFireAction<DatabaseSnapshot<{}>>)
           :ShoppingCart{
       let obj = action.payload.val()
