@@ -16,38 +16,40 @@ export class ProductsComponent implements OnInit, OnDestroy{
   products: Product[] = [];
   filteredProducts: Product[];
   category:string;
-  cart:any;
+  cart:any; // TODO: use the async pipe
   subscription:Subscription;
 
   constructor(private route:ActivatedRoute,
               private productService:ProductService,
-              private shoppingCartService: ShoppingCartService) { 
-    productService
-      .getAll()
-      .pipe(switchMap(p => {
-        this.products = p;
-        return route.queryParamMap;
-      }))
-      .subscribe(params => {
-        this.category = params.get('category');
-        
-        /* Refresh filtered products */
-        this.filteredProducts = (this.category) ? 
-          this.filteredProducts = this.products.filter(p=> p.category === this.category) :
-          this.products;
-      });
+              private shoppingCartService: ShoppingCartService) {
+  }
+
+  async ngOnInit() {
+    // Do some refactoring
+    this.productService
+    .getAll()
+    .pipe(switchMap(p => {
+      this.products = p;
+      return this.route.queryParamMap;
+    }))
+    .subscribe(params => {
+      this.category = params.get('category');
+      
+      /* Refresh filtered products */
+      this.filteredProducts = (this.category) ? 
+        this.filteredProducts = this.products.filter(p=> p.category === this.category) :
+        this.products;
+    });
+
+    let cart = await this.shoppingCartService.getCart();
+    this.subscription = cart.snapshotChanges()
+      .subscribe(res=>{
+        this.cart = this.shoppingCartService.angularFireActionToCartObject(res);      
+    })
   }
 
   ngOnDestroy(): void {
     if(this.subscription)
       this.subscription.unsubscribe()
-  }
-
-  async ngOnInit() {
-    let cart = await this.shoppingCartService.getCart();
-    cart.snapshotChanges()
-      .subscribe(res=>{
-        this.cart = this.shoppingCartService.angularFireActionToCartObject(res);      
-    })
   }
 }
