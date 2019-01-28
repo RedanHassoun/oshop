@@ -59,8 +59,11 @@ export class ShoppingCartService {
       .subscribe((item)=>{
         if(item.payload.exists()){
           const itemFromPayload = this.getItemFromPayload(item.payload);
-          if( (itemFromPayload.quantity + toAdd) < 0)
-            throw new Error("Quantity can't be negative");
+
+          if( (itemFromPayload.quantity + toAdd) === 0){
+            this.db.object(cartItemPath).remove()
+            return;
+          }
 
           this.db.object(cartItemPath).update({
             title: theProduct.title,
