@@ -5,7 +5,11 @@ export class ShoppingCartItem{
     title:string;
     price:number;
     imageURL:string;
-    quantity:number; 
+    quantity:number;
+
+    constructor(init?:Partial<ShoppingCartItem>){
+        Object.assign(this,init);
+    }
     
     get totalPrice(){
         if(this.quantity == undefined || this.price == undefined)
