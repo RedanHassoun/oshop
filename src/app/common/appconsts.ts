@@ -7,4 +7,5 @@ export class AppConsts{
     public static readonly DB_CATEGORIES = "/categories";
     public static readonly DB_PRODUCTS = "/products";
     public static readonly DB_SHOPPING_CARTS = "/shopping-carts";
+    public static readonly  DB_ORDERS = "/orders";
 }
