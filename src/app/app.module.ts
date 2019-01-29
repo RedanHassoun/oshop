@@ -69,7 +69,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
       
       /* Normal users */
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGaurd]},
-      { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGaurd]},
+      { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGaurd]},
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGaurd]},
       
       /* Admins */
