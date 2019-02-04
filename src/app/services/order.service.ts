@@ -3,7 +3,7 @@ import { ShoppingCartService } from './shopping-cart.service';
 import { AngularFireDatabase, AngularFireAction, DatabaseSnapshot } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
-import { Order } from '../model/order';
+import { Order } from 'shared/model/order';
 import { Observable } from 'rxjs';
 
 

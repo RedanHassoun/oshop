@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../services/order.service';
-import { Order } from '../model/order';
+import { Order } from 'shared/model/order';
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';

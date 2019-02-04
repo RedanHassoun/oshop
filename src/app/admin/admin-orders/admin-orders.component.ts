@@ -2,7 +2,7 @@ import { UserService } from './../../services/user.service';
 import { OrderService } from './../../services/order.service';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Order } from 'src/app/model/order';
+import { Order } from 'shared/model/order';
 
 @Component({
   selector: 'app-admin-orders',

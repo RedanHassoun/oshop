@@ -5,7 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import { ActivatedRoute } from '@angular/router';
 import { AppConsts } from '../common/appconsts';
-import { AppUser } from '../model/app-user';
+import { AppUser } from 'shared/model/app-user';
 import { switchMap  } from 'rxjs/operators';
 
 @Injectable({

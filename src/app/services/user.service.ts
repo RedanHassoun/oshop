@@ -3,7 +3,7 @@ import { AppConsts } from './../common/appconsts';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase';
-import { AppUser } from '../model/app-user';
+import { AppUser } from 'shared/model/app-user';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 

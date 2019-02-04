@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Observable, Subscription } from 'rxjs';
-import { Product } from 'src/app/model/product';
+import { Product } from 'shared/model/product';
 
 @Component({
   selector: 'app-admin-products',
