@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CustomFormsModule } from 'ng2-validation';
 import { FormsModule } from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
+    AngularFontAwesomeModule
   ],
   declarations: [
     ProductCardComponent,
@@ -40,7 +42,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    NgbModule
+    NgbModule,
+    AngularFontAwesomeModule
   ],providers:[
     AuthService,
     AuthGaurd,
