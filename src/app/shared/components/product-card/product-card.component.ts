@@ -1,7 +1,7 @@
-import { ShoppingCartService } from './../services/shopping-cart.service';
+import { ShoppingCartService } from 'shared/services/shopping-cart.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'shared/model/product';
-import { AppConsts } from '../common/appconsts';
+import { AppConsts } from '../../../common/appconsts';
 import { ShoppingCart } from 'shared/model/shopping-cart';
 
 @Component({

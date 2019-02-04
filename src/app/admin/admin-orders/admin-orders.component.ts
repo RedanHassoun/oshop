@@ -1,5 +1,5 @@
-import { UserService } from './../../services/user.service';
-import { OrderService } from './../../services/order.service';
+import { UserService } from 'shared/services/user.service';
+import { OrderService } from 'shared/services/order.service';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Order } from 'shared/model/order';

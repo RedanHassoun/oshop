@@ -1,6 +1,6 @@
-import { UserService } from './services/user.service';
+import { UserService } from 'shared/services/user.service';
 import { AppConsts } from './common/appconsts';
-import { AuthService } from './services/auth.service';
+import { AuthService } from 'shared/services/auth.service';
 import { Component } from '@angular/core';
 import { auth } from 'firebase';
 import { Router } from '@angular/router';

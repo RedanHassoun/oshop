@@ -1,7 +1,7 @@
-import { AppConsts } from './../common/appconsts';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireAction, DatabaseSnapshot } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
+import { AppConsts } from 'src/app/common/appconsts';
 
 @Injectable({
   providedIn: 'root'
