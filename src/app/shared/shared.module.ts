@@ -29,8 +29,6 @@ import { UserService } from './services/user.service';
     ProductService,
     ShoppingCartService,
     OrderService
-  ],schemas: [
-    NO_ERRORS_SCHEMA
   ]
 })
 export class SharedModule { }

@@ -8,12 +8,12 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CustomFormsModule } from 'ng2-validation';
-import { AdminAuthGuard } from 'shared/services/admin-auth-guard.service';
+import { AdminAuthGuard } from './admin/services/admin-auth-guard.service';
 import { AuthGaurd } from 'shared/services/auth-gaurd.service';
 import { environment } from 'src/environments/environment';
-import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
-import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
-import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { AdminOrdersComponent } from './admin/components/admin-orders/admin-orders.component';
+import { AdminProductsComponent } from './admin/components/admin-products/admin-products.component';
+import { ProductFormComponent } from './admin/components/product-form/product-form.component';
 import { AppComponent } from './app.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { CheckOutComponent } from './check-out/check-out.component';
@@ -27,6 +27,7 @@ import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { SharedModule } from 'shared/shared.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -38,10 +39,7 @@ import { SharedModule } from 'shared/shared.module';
     CheckOutComponent,
     OrderSuccessComponent,
     MyOrdersComponent,
-    AdminProductsComponent,
-    AdminOrdersComponent,
     LoginComponent,
-    ProductFormComponent,
     ProductsFilterComponent,
     ShoppingCartSummaryComponent,
     ShippingFormComponent
@@ -49,6 +47,7 @@ import { SharedModule } from 'shared/shared.module';
   imports: [
     BrowserModule,
     SharedModule,
+    AdminModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -76,7 +75,6 @@ import { SharedModule } from 'shared/shared.module';
     ])
   ],
   providers: [
-    AdminAuthGuard
   ],
   bootstrap: [AppComponent]
 })
